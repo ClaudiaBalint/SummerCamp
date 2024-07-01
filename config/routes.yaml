@@ -5,3 +5,7 @@ controllers:
 kernel:
     resource: ../src/Kernel.php
     type: annotation
+
+exercise_list:
+    path: /exercises
+    controller: App\Controller\ExerciseController::index

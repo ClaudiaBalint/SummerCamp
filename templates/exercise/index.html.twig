@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Exercise List{% endblock %}
+
+{% block body %}
+    <h1>Exercise List</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Video Link</th>
+            <th>Type ID</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for exercise in exercises %}
+            <tr>
+                <td>{{ exercise.nume }}</td>
+                <td><a href="{{ exercise.link_video }}">{{ exercise.link_video }}</a></td>
+                <td>{{ exercise.id_tip }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
