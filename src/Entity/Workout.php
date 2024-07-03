@@ -24,11 +24,11 @@ class Workout
 
     #[ORM\ManyToOne(inversedBy: 'workouts')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?tipe $tipe = null;
+    private ?Tipe $tipe = null;
 
     #[ORM\ManyToOne(inversedBy: 'workouts')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?user $user = null;
+    private ?User $user = null;
 
     #[ORM\OneToMany(mappedBy: 'workout', targetEntity: ExercisesLog::class, orphanRemoval: true)]
     private Collection $exercisesLogs;

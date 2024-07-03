@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Exercise List{% endblock %}
+{% block title %}User List{% endblock %}
 
 {% block body %}
     <style>
@@ -36,17 +36,19 @@
             <tr>
                 <th>ID</th>
                 <th>Name</th>
-                <th>Video link</th>
-                <th>Type ID</th>
+                <th>Mail</th>
+                <th>Birthdate</th>
+                <th>Gender</th>
             </tr>
             </thead>
             <tbody>
-            {% for exercise in exercises %}
+            {% for user in users %}
                 <tr>
-                    <td>{{ exercise.id }}</td>
-                    <td>{{ exercise.name }}</td>
-                    <td><a href="{{ exercise.getVideoLink() }}">{{ exercise.getVideoLink() }}</a></td>
-                    <td>{{ exercise.tipe.id }}</td>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.mail }}</td>
+                    <td>{{ user.birthdate }}</td>
+                    <td>{{ user.gender }}</td>
                 </tr>
             {% endfor %}
             </tbody>

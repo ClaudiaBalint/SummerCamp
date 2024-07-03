@@ -9,3 +9,7 @@ kernel:
 exercise_list:
     path: /exercises
     controller: App\Controller\ExerciseController::index
+
+user_list:
+    path: /users
+    controller: App\Controller\UserController::index

@@ -25,11 +25,11 @@ class ExercisesLog
 
     #[ORM\ManyToOne(inversedBy: 'exercisesLogs')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?workout $workout = null;
+    private ?Workout $workout = null;
 
     #[ORM\ManyToOne(inversedBy: 'exercisesLogs')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?exercises $exercises = null;
+    private ?Exercises $exercises = null;
 
     public function getId(): ?int
     {

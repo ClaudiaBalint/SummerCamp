@@ -9,7 +9,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\ExercisesRepository;
-use App\Repository\TipeRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -25,7 +24,7 @@ class ExerciseController extends AbstractController
         ]);
     }
 
-    #[Route('/', methods: (array('GET', 'POST')))]
+    #[Route('/1', methods: (array('GET', 'POST')))]
     public function new(Request $request, EntityManagerInterface $entityManager)
     {
         $exercise = new Exercises();
