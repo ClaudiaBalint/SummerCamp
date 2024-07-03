@@ -2,10 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\Exercises;
+use App\Entity\Tipe;
+use App\Form\Type\ExerciseType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\ExercisesRepository;
+use App\Repository\TipeRepository;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
 
 class ExerciseController extends AbstractController
 {
@@ -18,4 +24,29 @@ class ExerciseController extends AbstractController
             'exercises' => $exercises,
         ]);
     }
+
+    #[Route('/', methods: (array('GET', 'POST')))]
+    public function new(Request $request, EntityManagerInterface $entityManager)
+    {
+        $exercise = new Exercises();
+        $form = $this->createForm(ExerciseType::class, $exercise);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $exercise = $form->getData();
+            $tipe = new Tipe();
+            $tipe->setName('sdf');
+            $exercise->setTipe($tipe);
+            $entityManager->persist($tipe);
+            $entityManager->persist($exercise);
+            $entityManager->flush();
+
+        }
+
+        return $this->render('exercise/addExercisePage.html.twig', [
+            'form' => $form->createView(),
+        ]);
+
+    }
+
 }

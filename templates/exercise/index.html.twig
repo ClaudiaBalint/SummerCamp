@@ -3,24 +3,62 @@
 {% block title %}Exercise List{% endblock %}
 
 {% block body %}
-    <h1>Exercise List</h1>
+    <style>
+        .table-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+        }
+        table {
+            border-collapse: collapse;
+            width: 60%;
+            margin: auto;
+            background-color: #f9f9f9;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #1b4f87;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
 
-    <table>
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Video Link</th>
-            <th>Type ID</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for exercise in exercises %}
+    <div class="table-container">
+        <table>
+            <thead>
             <tr>
-                <td>{{ exercise.nume }}</td>
-                <td><a href="{{ exercise.link_video }}">{{ exercise.link_video }}</a></td>
-                <td>{{ exercise.id_tip }}</td>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Type ID</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for exercise in exercises %}
+                <tr>
+                    <td>{{ exercise.id }}</td>
+                    <td>{{ exercise.name }}</td>
+                    <td>{{ exercise.tipe.id }}</td>
+                    {#
+                    <td>{{ exercise.video_link }}</td>
+                    <td>
+                        {% for tipe in tipes %}
+                        {% if tipe.id == exercise.tipe.id %}
+                        {{ tipe.name }}
+                        {% endif %}
+                        {% endfor %}
+                    </td>
+                    #}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
 {% endblock %}
