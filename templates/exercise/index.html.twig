@@ -34,19 +34,26 @@
         <table>
             <thead>
             <tr>
-                <th>ID</th>
+{#                <th>ID</th>#}
                 <th>Name</th>
                 <th>Video link</th>
                 <th>Type ID</th>
+                <th>Delete</th>
             </tr>
             </thead>
             <tbody>
             {% for exercise in exercises %}
                 <tr>
-                    <td>{{ exercise.id }}</td>
+{#                    <td>{{ exercise.id }}</td>#}
                     <td>{{ exercise.name }}</td>
                     <td><a href="{{ exercise.getVideoLink() }}">{{ exercise.getVideoLink() }}</a></td>
                     <td>{{ exercise.tipe.id }}</td>
+                    <td>
+                        <form method="POST" action="{{ path('exercise_delete', {'id': exercise.id}) }}" onsubmit="return confirm('Confirm deletion?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>

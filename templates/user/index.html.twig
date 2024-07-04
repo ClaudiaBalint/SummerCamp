@@ -34,21 +34,26 @@
         <table>
             <thead>
             <tr>
-                <th>ID</th>
+{#                <th>ID</th>#}
                 <th>Name</th>
                 <th>Mail</th>
-                <th>Birthdate</th>
                 <th>Gender</th>
+                <th>Delete</th>
             </tr>
             </thead>
             <tbody>
             {% for user in users %}
                 <tr>
-                    <td>{{ user.id }}</td>
+{#                    <td>{{ user.id }}</td>#}
                     <td>{{ user.name }}</td>
                     <td>{{ user.mail }}</td>
-                    <td>{{ user.birthdate }}</td>
                     <td>{{ user.gender }}</td>
+                    <td>
+                        <form method="POST" action="{{ path('user_delete', {'id': user.id}) }}" onsubmit="return confirm('Confirm deletion?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>

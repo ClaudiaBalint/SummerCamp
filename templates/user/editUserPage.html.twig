@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Edit User</h1>
+    {{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.password) }}
+    {{ form_row(form.mail) }}
+    {{ form_row(form.birthdate) }}
+    {{ form_row(form.gender) }}
+    {{ form_row(form.save, { 'label': 'Update' }) }}
+    {{ form_end(form) }}
+{% endblock %}
+
+

@@ -14,7 +14,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class ExerciseController extends AbstractController
 {
-    #[Route('/exercises', name: 'exercise_list')]
+    #[Route('/exercises', name: 'exercise_list', methods: ['GET'])]
     public function index(ExercisesRepository $exercisesRepository): Response
     {
         $exercises = $exercisesRepository->findAll();
@@ -24,7 +24,7 @@ class ExerciseController extends AbstractController
         ]);
     }
 
-    #[Route('/1', methods: (array('GET', 'POST')))]
+    #[Route('/exercise/new', name: 'exercise_new', methods: (array('GET', 'POST')))]
     public function new(Request $request, EntityManagerInterface $entityManager)
     {
         $exercise = new Exercises();
@@ -33,12 +33,10 @@ class ExerciseController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $exercise = $form->getData();
-            $tipe = new Tipe();
-            $tipe->setName('sdf');
-            $exercise->setTipe($tipe);
-            $entityManager->persist($tipe);
             $entityManager->persist($exercise);
             $entityManager->flush();
+
+            return $this->redirectToRoute('exercise_list');
 
         }
 
@@ -46,6 +44,44 @@ class ExerciseController extends AbstractController
             'form' => $form->createView(),
         ]);
 
+    }
+
+    #[Route('/exercise/{id}/edit', name: 'exercise_edit', methods: ['GET', 'PATCH', 'POST'])]
+    public function edit(int $id, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $exercise = $entityManager->getRepository(Exercises::class)->find($id);
+
+        if (!$exercise) {
+            throw $this->createNotFoundException('No exercise found for id ' . $id);
+        }
+
+        $form = $this->createForm(ExerciseType::class, $exercise);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('exercise_list');
+        }
+
+        return $this->render('exercise/editExercisePage.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/exercise/{id}/delete', name: 'exercise_delete', methods: ['GET','POST','DELETE'])]
+    public function delete(int $id, EntityManagerInterface $entityManager, ExercisesRepository $exercisesRepository): Response
+    {
+        $exercise = $exercisesRepository->findOneById($id);
+
+        if (!$exercise) {
+            throw $this->createNotFoundException('No exercise found for id ' . $id);
+        }
+
+        $entityManager->remove($exercise);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('exercise_list');
     }
 
 }

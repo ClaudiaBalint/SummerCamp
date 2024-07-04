@@ -2,12 +2,14 @@
 
 namespace App\Form\Type;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Entity\Exercises;
+use App\Entity\Tipe;
 
 class ExerciseType extends AbstractType
 {
@@ -17,6 +19,11 @@ class ExerciseType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('video_link', TextType::class)
+            ->add('tipe', EntityType::class, [
+                'class' => Tipe::class,
+                'choice_label' => 'name',
+                'placeholder' => 'Choose a type',
+            ])
             ->add('save', SubmitType::class)
         ;
     }
@@ -26,5 +33,7 @@ class ExerciseType extends AbstractType
             'data_class' => Exercises::class,
         ]);
     }
+
+
 
 }

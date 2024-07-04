@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Edit Exercise</h1>
+    {{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.video_link) }}
+    {{ form_row(form.tipe) }}
+    {{ form_row(form.save, { 'label': 'Update' }) }}
+    {{ form_end(form) }}
+{% endblock %}
+
+

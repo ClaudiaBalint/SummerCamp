@@ -9,7 +9,38 @@ kernel:
 exercise_list:
     path: /exercises
     controller: App\Controller\ExerciseController::index
+    methods: ['GET']
+
+exercise_new:
+    path: /exercise/new
+    controller: App\Controller\ExerciseController::new
+    methods: ['GET', 'POST']
+
+exercise_edit:
+    path: /exercise/{id}/edit
+    controller: App\Controller\ExerciseController::edit
+    methods: ['GET', 'PATCH', 'POST']
+
+exercise_delete:
+    path: /exercise/{id}/delete
+    controller: App\Controller\ExerciseController::delete
+    methods: ['GET','POST','DELETE']
 
 user_list:
     path: /users
     controller: App\Controller\UserController::index
+
+user_new:
+    path: /user/new
+    controller: App\Controller\UserController::new
+    methods: ['GET', 'POST']
+
+user_edit:
+    path: /user/{id}/edit
+    controller: App\Controller\UserController::edit
+    methods: ['GET', 'PATCH', 'POST']
+
+user_delete:
+    path: /user/{id}/delete
+    controller: App\Controller\UserController::delete
+    methods: ['GET','POST','DELETE']
