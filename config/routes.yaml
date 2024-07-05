@@ -44,3 +44,42 @@ user_delete:
     path: /user/{id}/delete
     controller: App\Controller\UserController::delete
     methods: ['GET','POST','DELETE']
+
+workout_list:
+    path: /workouts
+    controller: App\Controller\WorkoutController::index
+
+workout_new:
+    path: /workout/new
+    controller: App\Controller\WorkoutController::new
+    methods: ['GET', 'POST']
+
+workout_edit:
+    path: /workout/{id}/edit
+    controller: App\Controller\WorkoutController::edit
+    methods: ['GET', 'PATCH', 'POST']
+
+workout_delete:
+    path: /workout/{id}/delete
+    controller: App\Controller\WorkoutController::delete
+    methods: ['GET','POST','DELETE']
+
+tipe_list:
+    path: /tipes
+    controller: App\Controller\TipeController::index
+    methods: ['GET']
+
+tipe_new:
+    path: /tipe/new
+    controller: App\Controller\TipeController::new
+    methods: ['GET', 'POST']
+
+tipe_edit:
+    path: /tipe/{id}/edit
+    controller: App\Controller\TipeController::edit
+    methods: ['GET', 'PATCH', 'POST']
+
+tipe_delete:
+    path: /tipe/{id}/delete
+    controller: App\Controller\TipeController::delete
+    methods: ['GET','POST','DELETE']
