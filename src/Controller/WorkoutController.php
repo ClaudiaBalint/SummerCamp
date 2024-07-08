@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Workout;
 use App\Form\Type\WorkoutType;
 use App\Repository\WorkoutRepository;
@@ -24,10 +25,30 @@ class WorkoutController extends AbstractController
         ]);
     }
 
+    #[Route('/workout/{id}/show', name: 'workout_show', methods: ['GET'])]
+    public function show(int $id, WorkoutRepository $workoutRepository): Response
+    {
+        $workout = $workoutRepository->find($id);
+
+        if (!$workout) {
+            throw $this->createNotFoundException('No workout found for id ' . $id);
+        }
+
+        return $this->render('workout/showWorkoutPage.html.twig', [
+            'workout' => $workout,
+        ]);
+    }
+
     #[Route('/workout/new', name: 'workout_new', methods: (array('GET', 'POST')))]
     public function new(Request $request, EntityManagerInterface $entityManager)
     {
         $workout = new Workout();
+
+//        $defaultUser = $entityManager->getRepository(User::class)->find(1);
+//        if ($defaultUser) {
+//            $workout->setUser($defaultUser);
+//        }
+
         $form = $this->createForm(WorkoutType::class, $workout);
 
         $form->handleRequest($request);

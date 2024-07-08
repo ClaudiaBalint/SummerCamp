@@ -24,6 +24,20 @@ class ExerciseController extends AbstractController
         ]);
     }
 
+    #[Route('/exercise/{id}/show', name: 'exercise_show', methods: ['GET'])]
+    public function show(int $id, ExercisesRepository $exercisesRepository): Response
+    {
+        $exercises = $exercisesRepository->find($id);
+
+        if (!$exercises) {
+            throw $this->createNotFoundException('No exercise found for id ' . $id);
+        }
+
+        return $this->render('exercise/showExercisePage.html.twig', [
+            'exercise' => $exercises,
+        ]);
+    }
+
     #[Route('/exercise/new', name: 'exercise_new', methods: (array('GET', 'POST')))]
     public function new(Request $request, EntityManagerInterface $entityManager)
     {

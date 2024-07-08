@@ -23,6 +23,20 @@ class TipeController extends AbstractController
         ]);
     }
 
+    #[Route('/tipe/{id}/show', name: 'tipe_show', methods: ['GET'])]
+    public function show(int $id, TipeRepository $tipeRepository): Response
+    {
+        $tipe = $tipeRepository->find($id);
+
+        if (!$tipe) {
+            throw $this->createNotFoundException('No type found for id ' . $id);
+        }
+
+        return $this->render('tipe/showTipePage.html.twig', [
+            'tipe' => $tipe,
+        ]);
+    }
+
     #[Route('/tipe/new', name: 'tipe_new', methods: (array('GET', 'POST')))]
     public function new(Request $request, EntityManagerInterface $entityManager)
     {

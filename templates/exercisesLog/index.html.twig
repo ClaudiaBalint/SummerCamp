@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Users List{% endblock %}</title>
+    <title>{% block title %}ExercisesLog List{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
 </head>
@@ -11,35 +11,37 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col">
-                <h1 class="text-center">Users List</h1>
+                <h1 class="text-center">ExercisesLog List</h1>
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped">
                         <thead class="table-primary">
                         <tr>
-                            <th>Name</th>
-                            <th>Mail</th>
-                            <th>Gender</th>
-                            <th>Birthdate</th>
+                            <th>Workout</th>
+                            <th>Exercise</th>
+                            <th>Number of repetitions</th>
+                            <th>Weight</th>
+                            <th>Time</th>
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {% for user in users %}
+                        {% for exercise in exerciseslog %}
                             <tr>
-                                <td>{{ user.name }}</td>
-                                <td>{{ user.mail }}</td>
-                                <td>{{ user.gender | gender_text }}</td>
-                                <td>{{ user.birthdate | date('Y-m-d') }}</td>
+                                <td>{{ exercise.workout.name }}</td>
+                                <td>{{ exercise.exercises.name }}</td>
+                                <td>{{ exercise.getNrReps() }}</td>
+                                <td>{{ exercise.weight }}</td>
+                                <td>{{ exercise.time|date('H:i') }}</td>
                                 <td>
-                                    <form id="edit-form-{{ user.id }}" method="POST"
-                                          action="{{ path('user_edit', {'id': user.id}) }}">
+                                    <form id="edit-form-{{ exercise.id }}" method="POST"
+                                          action="{{ path('exerciseslog_edit', {'id': exercise.id}) }}">
                                         <input type="hidden" name="_method" value="PATCH">
                                         <button type="submit" class="btn btn-warning">Edit</button>
                                     </form>
                                 </td>
                                 <td>
-                                    <form method="POST" action="{{ path('user_delete', {'id': user.id}) }}" onsubmit="return confirm('Confirm deletion?')">
+                                    <form method="POST" action="{{ path('exerciseslog_delete', {'id': exercise.id}) }}" onsubmit="return confirm('Confirm deletion?')">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <button type="submit" class="btn btn-danger">Delete</button>
                                     </form>
@@ -50,7 +52,7 @@
                     </table>
                 </div>
                 <div class="text-center mt-3">
-                    <a href="{{ path('user_new') }}" class="btn btn-success">Add User</a>
+                    <a href="{{ path('exerciseslog_new') }}" class="btn btn-success">Add exerciseLog</a>
                 </div>
             </div>
         </div>

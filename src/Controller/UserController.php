@@ -24,6 +24,20 @@ class UserController extends AbstractController
         ]);
     }
 
+    #[Route('/user/{id}/show', name: 'user_show', methods: ['GET'])]
+    public function show(int $id, UserRepository $userRepository): Response
+    {
+        $user = $userRepository->find($id);
+
+        if (!$user) {
+            throw $this->createNotFoundException('No user found for id ' . $id);
+        }
+
+        return $this->render('user/showUserPage.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
     #[Route('/user/new', name: 'exercise_new', methods: (array('GET', 'POST')))]
     public function new(Request $request, EntityManagerInterface $entityManager)
     {

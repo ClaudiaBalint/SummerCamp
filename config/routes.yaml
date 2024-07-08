@@ -11,6 +11,11 @@ exercise_list:
     controller: App\Controller\ExerciseController::index
     methods: ['GET']
 
+exercise_show:
+    path: /exercise/{id}/show
+    controller: App\Controller\ExerciseController::show
+    methods: ['GET']
+
 exercise_new:
     path: /exercise/new
     controller: App\Controller\ExerciseController::new
@@ -30,6 +35,11 @@ user_list:
     path: /users
     controller: App\Controller\UserController::index
 
+user_show:
+    path: /user/{id}/show
+    controller: App\Controller\UserController::show
+    methods: ['GET']
+
 user_new:
     path: /user/new
     controller: App\Controller\UserController::new
@@ -48,6 +58,11 @@ user_delete:
 workout_list:
     path: /workouts
     controller: App\Controller\WorkoutController::index
+
+workout_show:
+    path: /workout/{id}/show
+    controller: App\Controller\WorkoutController::show
+    methods: ['GET']
 
 workout_new:
     path: /workout/new
@@ -69,6 +84,11 @@ tipe_list:
     controller: App\Controller\TipeController::index
     methods: ['GET']
 
+tipe_show:
+    path: /tipe/{id}/show
+    controller: App\Controller\TipeController::show
+    methods: ['GET']
+
 tipe_new:
     path: /tipe/new
     controller: App\Controller\TipeController::new
@@ -82,4 +102,29 @@ tipe_edit:
 tipe_delete:
     path: /tipe/{id}/delete
     controller: App\Controller\TipeController::delete
+    methods: ['GET','POST','DELETE']
+
+exerciseslog_list:
+    path: /exerciseslogs
+    controller: App\Controller\ExercisesLogController::index
+    methods: ['GET']
+
+exerciseslog_show:
+    path: /exerciseslog/{id}/show
+    controller: App\Controller\ExercisesLogController::show
+    methods: ['GET']
+
+exerciseslog_new:
+    path: /exerciseslog/new
+    controller: App\Controller\ExercisesLogController::new
+    methods: ['GET', 'POST']
+
+exerciseslog_edit:
+    path: /exerciseslog/{id}/edit
+    controller: App\Controller\ExercisesLogController::edit
+    methods: ['GET', 'PATCH', 'POST']
+
+exerciseslog_delete:
+    path: /exerciseslog/{id}/delete
+    controller: App\Controller\ExercisesLogController::delete
     methods: ['GET','POST','DELETE']

@@ -67,24 +67,24 @@ class Workout
         return $this;
     }
 
-    public function getTipe(): ?tipe
+    public function getTipe(): ?Tipe
     {
         return $this->tipe;
     }
 
-    public function setTipe(?tipe $tipe): static
+    public function setTipe(?Tipe $tipe): static
     {
         $this->tipe = $tipe;
 
         return $this;
     }
 
-    public function getUser(): ?user
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(?user $user): static
+    public function setUser(?User $user): static
     {
         $this->user = $user;
 

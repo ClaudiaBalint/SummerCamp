@@ -72,24 +72,24 @@ class ExercisesLog
         return $this;
     }
 
-    public function getWorkout(): ?workout
+    public function getWorkout(): ?Workout
     {
         return $this->workout;
     }
 
-    public function setWorkout(?workout $workout): static
+    public function setWorkout(?Workout $workout): static
     {
         $this->workout = $workout;
 
         return $this;
     }
 
-    public function getExercises(): ?exercises
+    public function getExercises(): ?Exercises
     {
         return $this->exercises;
     }
 
-    public function setExercises(?exercises $exercises): static
+    public function setExercises(?Exercises $exercises): static
     {
         $this->exercises = $exercises;
 

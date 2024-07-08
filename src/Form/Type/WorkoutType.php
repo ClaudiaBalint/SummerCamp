@@ -7,7 +7,9 @@ use App\Entity\Workout;
 use App\Entity\Tipe;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -26,14 +28,15 @@ class WorkoutType extends AbstractType
                 'choice_label' => 'name',
                 'placeholder' => 'Choose a type',
             ])
+//            ->add('user', HiddenType::class)
             ->add('user', EntityType::class, [
                 'class' => User::class,
                 'choice_label' => 'name',
-                'placeholder' => 'Choose a user',
-                //sa fac unul by defolt
+                'placeholder' => 'Choose a type',
             ])
             ->add('save', SubmitType::class)
         ;
+
     }
     public function configureOptions(OptionsResolver $resolver): void
     {

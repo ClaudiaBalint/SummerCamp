@@ -17,7 +17,7 @@
                         <thead class="table-primary">
                         <tr>
                             <th>Name</th>
-{#                            <th>Date</th>#}
+                            <th>Date and time</th>
                             <th>Type</th>
                             <th>User</th>
                             <th>Edit</th>
@@ -28,7 +28,7 @@
                         {% for workout in workouts %}
                             <tr>
                                 <td>{{ workout.name }}</td>
-{#                                <td>{{ workout.date }}</td>#}
+                                <td>{{ workout.date | date(('Y-m-d H:i'))}}</td>
                                 <td>{{ workout.tipe.name }}</td>
                                 <td>{{ workout.user.name }}</td>
                                 <td>
