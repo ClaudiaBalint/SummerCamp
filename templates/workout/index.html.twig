@@ -8,51 +8,51 @@
 </head>
 <body>
 {% block body %}
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col">
-                <h1 class="text-center">Workouts List</h1>
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped">
-                        <thead class="table-primary">
-                        <tr>
-                            <th>Name</th>
-                            <th>Date and time</th>
-                            <th>Type</th>
-                            <th>User</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for workout in workouts %}
-                            <tr>
-                                <td>{{ workout.name }}</td>
-                                <td>{{ workout.date | date(('Y-m-d H:i'))}}</td>
-                                <td>{{ workout.tipe.name }}</td>
-                                <td>{{ workout.user.name }}</td>
-                                <td>
-                                    <form id="edit-form-{{ workout.id }}" method="POST"
-                                          action="{{ path('workout_edit', {'id': workout.id}) }}">
-                                        <input type="hidden" name="_method" value="PATCH">
-                                        <button type="submit" class="btn btn-warning">Edit</button>
-                                    </form>
-                                </td>
-                                <td>
-                                    <form method="POST" action="{{ path('workout_delete', {'id': workout.id}) }}" onsubmit="return confirm('Confirm deletion?')">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-                <div class="text-center mt-3">
-                    <a href="{{ path('workout_new') }}" class="btn btn-success">Add workout</a>
-                </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('user_list') }}">Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('workout_list') }}">Workouts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('exercise_list') }}">Exercises</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('exerciseslog_list') }}">ExercisesLog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('tipe_list') }}">Type</a>
+                    </li>
+                </ul>
             </div>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <h1 class="text-center">Workouts List</h1>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for workout in workouts %}
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ workout.name }}</h5>
+                            <p class="card-text">Date: {{ workout.date | date('Y-m-d H:i') }}</p>
+                            <p class="card-text">Type: {{ workout.tipe.name }}</p>
+                            <p class="card-text">User: {{ workout.user.name }}</p>
+                            <a href="{{ path('workout_show', {'id': workout.id}) }}" class="btn btn-primary">View details</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-3">
+            <a href="{{ path('workout_new') }}" class="btn btn-success">Add workout</a>
         </div>
     </div>
 {% endblock %}

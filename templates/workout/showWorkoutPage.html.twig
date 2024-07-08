@@ -26,6 +26,7 @@
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
                         <a href="{{ path('workout_list') }}" class="btn btn-primary">Back to list</a>
+                        <a href="{{ path('exerciseslog_new', {'workout_id': workout.id}) }}" class="btn btn-success float-end">Add Exercise</a>
                     </div>
                 </div>
             </div>

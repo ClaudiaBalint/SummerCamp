@@ -37,6 +37,27 @@ class ExercisesLogController extends AbstractController
         ]);
     }
 
+//    #[Route('/exerciseslog/new/{workout_id}', name: 'exerciseslog_new', methods: ['GET', 'POST'])]
+//    public function new(int $workout_id, Request $request, EntityManagerInterface $entityManager): Response
+//    {
+//        $exerciselog = new ExercisesLog();
+//        $exerciselog->setWorkoutId($workout_id);
+//
+//        $form = $this->createForm(ExercisesLogType::class, $exerciselog);
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $entityManager->persist($exerciselog);
+//            $entityManager->flush();
+//
+//            return $this->redirectToRoute('exerciseslog_list');
+//        }
+//
+//        return $this->render('exercisesLog/addExercisesLogPage.html.twig', [
+//            'form' => $form->createView(),
+//        ]);
+//    }
+
     #[Route('/exerciseslog/new', name: 'exerciseslog_new', methods: (array('GET', 'POST')))]
     public function new(Request $request, EntityManagerInterface $entityManager)
     {

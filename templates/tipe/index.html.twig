@@ -8,45 +8,49 @@
 </head>
 <body>
 {% block body %}
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col">
-                <h1 class="text-center">Types List</h1>
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped">
-                        <thead class="table-primary">
-                        <tr>
-                            <th>Name</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for tipe in tipes %}
-                            <tr>
-                                <td>{{ tipe.name }}</td>
-                                <td>
-                                    <form id="edit-form-{{ tipe.id }}" method="POST"
-                                          action="{{ path('tipe_edit', {'id': tipe.id}) }}">
-                                        <input type="hidden" name="_method" value="PATCH">
-                                        <button type="submit" class="btn btn-warning">Edit</button>
-                                    </form>
-                                </td>
-                                <td>
-                                    <form method="POST" action="{{ path('tipe_delete', {'id': tipe.id}) }}" onsubmit="return confirm('Confirm deletion?')">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-                <div class="text-center mt-3">
-                    <a href="{{ path('tipe_new') }}" class="btn btn-success">Add type</a>
-                </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            {#            <a class="navbar-brand" href="{{ path('homepage') }}">My App</a>#}
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('user_list') }}">Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('workout_list') }}">Workouts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('exercise_list') }}">Exercises</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('exerciseslog_list') }}">ExercisesLog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('tipe_list') }}">Type</a>
+                    </li>
+                </ul>
             </div>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <h1 class="text-center">Types List</h1>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for tipe in tipes %}
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ tipe.name }}</h5>
+                            <a href="{{ path('tipe_show', {'id': tipe.id}) }}" class="btn btn-primary">View details</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-3">
+            <a href="{{ path('tipe_new') }}" class="btn btn-success">Add type</a>
         </div>
     </div>
 {% endblock %}
