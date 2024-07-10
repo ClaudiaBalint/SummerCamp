@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\Type\UserType;
 use App\Repository\UserRepository;
+use App\Repository\WorkoutRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +26,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/user/{id}/show', name: 'user_show', methods: ['GET'])]
-    public function show(int $id, UserRepository $userRepository): Response
+    public function show(int $id, UserRepository $userRepository, WorkoutRepository $workoutRepository): Response
     {
         $user = $userRepository->find($id);
 
@@ -33,12 +34,15 @@ class UserController extends AbstractController
             throw $this->createNotFoundException('No user found for id ' . $id);
         }
 
+        $workout = $workoutRepository->findBy(['user' => $user]);
+
         return $this->render('user/showUserPage.html.twig', [
             'user' => $user,
+            'workout' => $workout,
         ]);
     }
 
-    #[Route('/user/new', name: 'exercise_new', methods: (array('GET', 'POST')))]
+    #[Route('/user/new', name: 'user_new', methods: (array('GET', 'POST')))]
     public function new(Request $request, EntityManagerInterface $entityManager)
     {
         $user = new User();
@@ -74,7 +78,7 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('user_list');
+            return $this->redirectToRoute('user_show', ['id' => $user->getId()]);
         }
 
         return $this->render('user/editUserPage.html.twig', [

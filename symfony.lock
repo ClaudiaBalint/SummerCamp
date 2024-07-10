@@ -97,7 +97,7 @@
         },
         "files": [
             "./config/packages/routing.yaml",
-            "./config/routes.yaml"
+            "./config/routes/attributes.yaml"
         ]
     },
     "symfony/twig-bundle": {

@@ -25,10 +25,12 @@
                         <a class="nav-link" href="{{ path('exercise_list') }}">Exercises</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('exerciseslog_list') }}">ExercisesLog</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="{{ path('tipe_list') }}">Type</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('user_new') }}">Create Account</a>
                     </li>
                 </ul>
             </div>
@@ -51,9 +53,9 @@
                 </div>
             {% endfor %}
         </div>
-        <div class="text-center mt-3">
-            <a href="{{ path('workout_new') }}" class="btn btn-success">Add workout</a>
-        </div>
+{#        <div class="text-center mt-3">#}
+{#            <a href="{{ path('workout_new') }}" class="btn btn-success">Add workout</a>#}
+{#        </div>#}
     </div>
 {% endblock %}
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXlHjAAK2Zd6vHnP6iJX6iFf3wO6hSibFYzey0LMGF82YYZoYwY2f1MAutoZ" crossorigin="anonymous"></script>

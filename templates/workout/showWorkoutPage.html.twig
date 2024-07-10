@@ -5,6 +5,16 @@
     <title>{% block title %}Workout Details{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    <style>
+        .exercise-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 1rem;
+        }
+        .exercise-card {
+            min-width: 300px;
+        }
+    </style>
 </head>
 <body>
 {% block body %}
@@ -17,13 +27,32 @@
                         {{ workout.name }}
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">Type: {{ workout.tipe.name }}</h5>
+                        <p class="card-title">Type: {{ workout.tipe.name }}</p>
                         <p class="card-text">User: {{ workout.user.name }}</p>
                         <p class="card-text">Date: {{ workout.date|date('Y-m-d H:i') }}</p>
-                        <a href="{{ path('workout_edit', {'id': workout.id}) }}" class="btn btn-warning">Edit</a>
+                        <h5 class="card-title">Exercises:</h5>
+                        <div class="exercise-container">
+                            {% for exerciseLog in exerciseslog %}
+                                <div class="card exercise-card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Exercise: {{ exerciseLog.exercises.name }}</h5>
+                                        <p class="card-text">Number of repetitions: {{ exerciseLog.nrReps }}</p>
+                                        <p class="card-text">Weight: {{ exerciseLog.weight }}</p>
+                                        <p class="card-text">Time: {{ exerciseLog.time|date('H:i') }}</p>
+                                        <a href="{{ path('exerciseslog_show', {'id': exerciseLog.id}) }}" class="btn btn-info">View details</a>
+                                        <a href="{{ path('exerciseslog_edit', {'id': exerciseLog.id}) }}" class="btn btn-warning">Edit</a>
+                                        <form method="POST" action="{{ path('exerciseslog_delete', {'id': exerciseLog.id}) }}" style="display:inline;" onsubmit="return confirm('Confirm deletion?')">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <a href="{{ path('workout_edit', {'id': workout.id}) }}" class="btn btn-warning">Edit workout</a>
                         <form method="POST" action="{{ path('workout_delete', {'id': workout.id}) }}" style="display:inline;" onsubmit="return confirm('Confirm deletion?')">
                             <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-danger">Delete workout</button>
                         </form>
                         <a href="{{ path('workout_list') }}" class="btn btn-primary">Back to list</a>
                         <a href="{{ path('exerciseslog_new', {'workout_id': workout.id}) }}" class="btn btn-success float-end">Add Exercise</a>

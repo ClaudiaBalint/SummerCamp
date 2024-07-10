@@ -64,10 +64,10 @@ workout_show:
     controller: App\Controller\WorkoutController::show
     methods: ['GET']
 
-workout_new:
-    path: /workout/new
-    controller: App\Controller\WorkoutController::new
-    methods: ['GET', 'POST']
+#workout_new:
+#    path: /workout/new
+#    controller: App\Controller\WorkoutController::new
+#    methods: ['GET', 'POST']
 
 workout_edit:
     path: /workout/{id}/edit
@@ -109,13 +109,23 @@ exerciseslog_list:
     controller: App\Controller\ExercisesLogController::index
     methods: ['GET']
 
+#exerciseslog_show:
+#    path: /exerciseslog/{id}/show
+#    controller: App\Controller\ExercisesLogController::show
+#    methods: ['GET']
+
 exerciseslog_show:
     path: /exerciseslog/{id}/show
     controller: App\Controller\ExercisesLogController::show
     methods: ['GET']
 
+exerciseslog_show_workout:
+    path: /exerciseslog/show/{workout_id}
+    controller: App\Controller\ExercisesLogController::showall
+    methods: ['GET']
+
 exerciseslog_new:
-    path: /exerciseslog/new
+    path: /exerciseslog/new/{workout_id}
     controller: App\Controller\ExercisesLogController::new
     methods: ['GET', 'POST']
 
@@ -128,3 +138,8 @@ exerciseslog_delete:
     path: /exerciseslog/{id}/delete
     controller: App\Controller\ExercisesLogController::delete
     methods: ['GET','POST','DELETE']
+
+workout_new:
+    path: /workout/new/{user_id}
+    controller: App\Controller\WorkoutController::new
+    methods: ['GET', 'POST']

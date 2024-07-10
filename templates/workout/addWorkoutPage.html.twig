@@ -21,9 +21,12 @@
             <div class="mb-3">
                 {{ form_row(form.tipe) }}
             </div>
-            <div class="mb-3">
-                {{ form_row(form.user) }}
-            </div>
+{#            <div class="mb-3">#}
+{#                {{ form_row(form.user) }}#}
+{#            </div>#}
+{#            <div>#}
+{#                <a href="{{ path('exerciseslog_new', {'workout_id': workout.id}) }}" class="btn btn-success float-end">Add Exercise</a>#}
+{#            </div>#}
             <div class="text-center mt-3">
                 {{ form_row(form.save, { 'label': 'Save', 'attr': { 'class': 'btn btn-primary' } }) }}
             </div>

@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Workout;
 use App\Form\Type\WorkoutType;
+use App\Repository\ExercisesLogRepository;
+use App\Repository\UserRepository;
 use App\Repository\WorkoutRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,7 +28,7 @@ class WorkoutController extends AbstractController
     }
 
     #[Route('/workout/{id}/show', name: 'workout_show', methods: ['GET'])]
-    public function show(int $id, WorkoutRepository $workoutRepository): Response
+    public function show(int $id, WorkoutRepository $workoutRepository, ExercisesLogRepository $exerciseslogRepository): Response
     {
         $workout = $workoutRepository->find($id);
 
@@ -34,37 +36,62 @@ class WorkoutController extends AbstractController
             throw $this->createNotFoundException('No workout found for id ' . $id);
         }
 
+        $exerciseLogs = $exerciseslogRepository->findBy(['workout' => $workout]);
+
         return $this->render('workout/showWorkoutPage.html.twig', [
             'workout' => $workout,
+            'exerciseslog' => $exerciseLogs,
         ]);
     }
 
-    #[Route('/workout/new', name: 'workout_new', methods: (array('GET', 'POST')))]
-    public function new(Request $request, EntityManagerInterface $entityManager)
-    {
-        $workout = new Workout();
-
-//        $defaultUser = $entityManager->getRepository(User::class)->find(1);
-//        if ($defaultUser) {
-//            $workout->setUser($defaultUser);
+//    #[Route('/workout/new', name: 'workout_new', methods: (array('GET', 'POST')))]
+//    public function new(Request $request, EntityManagerInterface $entityManager)
+//    {
+//        $workout = new Workout();
+//
+////        $defaultUser = $entityManager->getRepository(User::class)->find(1);
+////        if ($defaultUser) {
+////            $workout->setUser($defaultUser);
+////        }
+//
+//        $form = $this->createForm(WorkoutType::class, $workout);
+//
+//        $form->handleRequest($request);
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $workout = $form->getData();
+//            $entityManager->persist($workout);
+//            $entityManager->flush();
+//
+//            return $this->redirectToRoute('workout_list');
+//
 //        }
+//
+//        return $this->render('workout/addWorkoutPage.html.twig', [
+//            'form' => $form->createView(),
+//        ]);
+//
+//    }
+
+    #[Route('/workout/new/{user_id}', name: 'workout_new', methods: ['GET', 'POST'])]
+    public function new(int $user_id, Request $request, WorkoutRepository $workoutRepository, EntityManagerInterface $entityManager, UserRepository $userRepository): Response
+    {
+        $user = $userRepository->find($user_id);
+        $workout = new Workout();
+        $workout->setUser($user);
 
         $form = $this->createForm(WorkoutType::class, $workout);
-
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
-            $workout = $form->getData();
             $entityManager->persist($workout);
             $entityManager->flush();
 
-            return $this->redirectToRoute('workout_list');
-
+            return $this->redirectToRoute('user_show', ['id' => $workout->getUser()->getId()]);
         }
 
         return $this->render('workout/addWorkoutPage.html.twig', [
             'form' => $form->createView(),
         ]);
-
     }
 
     #[Route('/workout/{id}/edit', name: 'workout_edit', methods: ['GET', 'PATCH', 'POST'])]
@@ -82,7 +109,7 @@ class WorkoutController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('workout_list');
+            return $this->redirectToRoute('user_show', ['id' => $workout->getUser()->getId()]);
         }
 
         return $this->render('workout/editWorkoutPage.html.twig', [
@@ -102,7 +129,7 @@ class WorkoutController extends AbstractController
         $entityManager->remove($workout);
         $entityManager->flush();
 
-        return $this->redirectToRoute('workout_list');
+        return $this->redirectToRoute('user_show', ['id' => $workout->getUser()->getId()]);
     }
 
 }

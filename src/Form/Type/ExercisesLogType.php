@@ -22,11 +22,11 @@ class ExercisesLogType extends AbstractType
             ->add('nr_reps', IntegerType::class)
             ->add('weight', IntegerType::class)
             ->add('time', TimeType::class)
-            ->add('workout', EntityType::class, [
-                'class' => Workout::class,
-                'choice_label' => 'name',
-                'placeholder' => 'Choose a workout',
-            ])
+//            ->add('workout', EntityType::class, [
+//                'class' => Workout::class,
+//                'choice_label' => 'name',
+//                'placeholder' => 'Choose a workout',
+//            ])
             ->add('exercises', EntityType::class, [
                 'class' => Exercises::class,
                 'choice_label' => 'name',

@@ -29,11 +29,11 @@ class WorkoutType extends AbstractType
                 'placeholder' => 'Choose a type',
             ])
 //            ->add('user', HiddenType::class)
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'name',
-                'placeholder' => 'Choose a type',
-            ])
+//            ->add('user', EntityType::class, [
+//                'class' => User::class,
+//                'choice_label' => 'name',
+//                'placeholder' => 'Choose a type',
+//            ])
             ->add('save', SubmitType::class)
         ;
 

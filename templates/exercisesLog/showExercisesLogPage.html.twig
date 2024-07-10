@@ -19,6 +19,8 @@
                     <div class="card-body">
                         <h5 class="card-title">Workout: {{ exerciseslog.workout.name }}</h5>
                         <h5 class="card-title">Exercise: {{ exerciseslog.exercises.name }}</h5>
+                        <h5 class="card-title"><a href="{{ exerciseslog.exercises.getVideoLink() }}">Link: {{ exerciseslog.exercises.getVideoLink() }}</a></h5>
+                        <p class="card-text">Type: {{ exerciseslog.exercises.tipe.name }}</p>
                         <p class="card-text">Number of repetitions: {{ exerciseslog.getNrReps() }}</p>
                         <p class="card-text">Weight: {{ exerciseslog.weight }}</p>
                         <p class="card-text">Time: {{ exerciseslog.time|date('H:i') }}</p>
@@ -27,7 +29,7 @@
                             <input type="hidden" name="_method" value="DELETE">
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
-                        <a href="{{ path('exerciseslog_list') }}" class="btn btn-primary">Back to list</a>
+                        <a href="{{ path('workout_show', {'id': exerciseslog.workout.id}) }}" class="btn btn-primary">Back to list</a>
                     </div>
                 </div>
             </div>
